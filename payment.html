@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Slip</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+    }
+    .slip-container {
+        max-width: 500px;
+        background: white;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align: center;
+        color: #003366;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    table, th, td {
+        border: 1px solid #ccc;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+    .total {
+        font-weight: bold;
+        font-size: 18px;
+        text-align: right;
+        padding-top: 10px;
+    }
+    .pay-btn {
+        display: block;
+        text-align: center;
+        background: #003366;
+        color: white;
+        padding: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+    .pay-btn:hover {
+        background: #0055aa;
+    }
+</style>
+</head>
+<body>
+
+<div class="slip-container">
+    <h2>Payment Slip</h2>
+    <p><strong>Date:</strong> <span id="date"></span></p>
+    <p><strong>Customer Name:</strong> APARNA.C</p>
+
+    <table id="cart-table">
+        <tr>
+            <th>Book</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+        </tr>
+        <!-- Rows will be inserted here -->
+    </table>
+
+    <p class="total" id="grand-total">Grand Total: ₹0.00</p>
+
+    <a href="#" class="pay-btn">Pay Now</a>
+</div>
+
+<script>
+    // Display today's date
+    document.getElementById("date").innerText = new Date().toLocaleDateString();
+
+    // Temporary sample cart data (for testing)
+    if (!localStorage.getItem("cart")) {
+        let sampleCart = [
+            { name: "HTML & CSS Guide", price: 250, qty: 1 },
+            { name: "JavaScript Basics", price: 300, qty: 2 },
+            { name: "Python for Beginners", price: 500, qty: 1 }
+        ];
+        localStorage.setItem("cart", JSON.stringify(sampleCart));
+    }
+
+    // Retrieve cart data from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let cartTable = document.getElementById("cart-table");
+    let grandTotal = 0;
+
+    cart.forEach(item => {
+        let totalPrice = item.price * item.qty;
+        grandTotal += totalPrice;
+
+        let row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>₹${item.price.toFixed(2)}</td>
+            <td>${item.qty}</td>
+            <td>₹${totalPrice.toFixed(2)}</td>
+        `;
+        cartTable.appendChild(row);
+    });
+
+    document.getElementById("grand-total").innerText = `Grand Total: ₹${grandTotal.toFixed(2)}`;
+</script>
+
+</body>
+</html>
