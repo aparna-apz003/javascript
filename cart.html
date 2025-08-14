@@ -55,7 +55,6 @@
       padding-right: 20px;
       color: #003366;
     }
-    /* Fixed checkout button */
     .checkout-btn {
       margin-top: 20px;
       display: block;
@@ -76,10 +75,12 @@
     .checkout-btn:hover {
       background-color: #005599;
     }
-    .checkout-btn:focus,
-    .checkout-btn:active {
-      outline: none;
-      box-shadow: none;
+    input.quantity-input {
+      width: 50px;
+      text-align: center;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
   </style>
 </head>
@@ -107,7 +108,6 @@
     </tfoot>
   </table>
 
-  <!-- Changed button to a link styled as button -->
   <a href="payment.html" class="checkout-btn">Proceed to Checkout</a>
 
   <script>
@@ -124,7 +124,9 @@
           <td><img src="${item.image}" alt="${item.title}" class="book-cover"></td>
           <td>${item.title}</td>
           <td>₹${parseFloat(item.price).toFixed(2)}</td>
-          <td>${item.quantity}</td>
+          <td>
+            <input type="number" min="1" value="${item.quantity}" class="quantity-input" data-index="${index}">
+          </td>
           <td><button class="remove-btn" data-index="${index}">Remove</button></td>
         `;
 
@@ -134,11 +136,26 @@
 
       document.querySelector(".total-row td").textContent = `Total: ₹${total.toFixed(2)}`;
 
-      // Add remove functionality
+      // Remove functionality
       document.querySelectorAll(".remove-btn").forEach(button => {
         button.addEventListener("click", function () {
           let index = this.dataset.index;
           cart.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          loadCart();
+        });
+      });
+
+      // Quantity change functionality
+      document.querySelectorAll(".quantity-input").forEach(input => {
+        input.addEventListener("change", function () {
+          let index = this.dataset.index;
+          let newQty = parseInt(this.value);
+          if (isNaN(newQty) || newQty < 1) {
+            this.value = cart[index].quantity; // Reset to previous value
+            return;
+          }
+          cart[index].quantity = newQty;
           localStorage.setItem("cart", JSON.stringify(cart));
           loadCart();
         });
