@@ -1,174 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Registration | Online Book Store</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                  url('login.png') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .overlay {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-      width: 100%;
-      max-width: 450px;
-      color: #fff;
-    }
-
-    h2 {
-      text-align: center;
-      color: #ffffff;
-      margin-bottom: 25px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-      margin-top: 10px;
-      color: #ffeb99;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.95);
-      font-size: 14px;
-      box-sizing: border-box;
-      color: #000;
-    }
-
-    input[type="radio"], input[type="checkbox"] {
-      width: auto;
-      margin-right: 8px;
-    }
-
-    textarea {
-      resize: none;
-      height: 60px;
-    }
-
-    .button-group {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
-
-    button {
-      width: 48%;
-      background-color: #ffcc00;
-      color: #003366;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #e6b800;
-      transform: scale(1.05);
-    }
-
-    .login-link {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .login-link a {
-      color: #ffcc00;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .login-link a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="overlay">
-    <h2>Registration</h2>
-    <form action="register_process.php" method="post" onsubmit="return checkPasswords()">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
-      <label for="confirm_password">Confirm Password</label>
-      <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
-
-      <label for="email">E-mail ID</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-      <label for="phone">Phone Number</label>
-      <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
-
-      <label>Sex</label>
-      <input type="radio" id="male" name="sex" value="Male" required>
-      <label for="male" style="display:inline; color:#fff;">Male</label>
-      <input type="radio" id="female" name="sex" value="Female" required>
-      <label for="female" style="display:inline; color:#fff;">Female</label>
-
-      <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" name="dob" required>
-
-      <label>Languages Known</label>
-      <div style="color:#fff;">
-        <input type="checkbox" name="languages[]" value="English"> English
-        <input type="checkbox" name="languages[]" value="Malayalam"> Malayalam
-        <input type="checkbox" name="languages[]" value="Hindi"> Hindi
-        <input type="checkbox" name="languages[]" value="Tamil"> Tamil
-      </div>
-
-      <label for="address">Address</label>
-      <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
-
-      <div class="button-group">
-        <button type="reset">Reset</button>
-        <button type="submit">Register</button>
-      </div>
-
-      <div class="login-link">
-        <p>Already have an account? <a href="login.html">Login here</a></p>
-      </div>
-    </form>
-  </div>
-
-  <script>
-    function checkPasswords() {
-      let pass = document.getElementById("password").value;
-      let confirmPass = document.getElementById("confirm_password").value;
-      if (pass !== confirmPass) {
-        alert("Passwords do not match!");
-        return false;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registration | Online Book Store</title>
+    <style>
+      /* Existing styles */
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("login.png") no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
       }
-      return true;
-    }
-  </script>
+      .overlay {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 450px;
+        color: #fff;
+      }
+      h2 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 10px;
+        color: #ffeb99;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 4px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        font-size: 14px;
+        box-sizing: border-box;
+        color: #000;
+      }
+      input[type="radio"],
+      input[type="checkbox"] {
+        width: auto;
+        margin-right: 8px;
+      }
+      textarea {
+        resize: none;
+        height: 60px;
+      }
+      .error {
+        color: #ff4d4d;
+        font-size: 13px;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+      button {
+        width: 48%;
+        background-color: #ffcc00;
+        color: #003366;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      button:hover {
+        background-color: #e6b800;
+        transform: scale(1.05);
+      }
+      .login-link {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .login-link a {
+        color: #ffcc00;
+        font-weight: bold;
+        text-decoration: none;
+      }
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay">
+      <h2>Registration</h2>
+      <form
+        id="registrationForm"
+        action="register_process.php"
+        method="post"
+        novalidate
+      >
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter your full name"
+          required
+        />
+        <span class="error" id="nameError"></span>
 
-</body>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        />
+        <span class="error" id="passwordError"></span>
+
+        <label for="confirm_password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          placeholder="Re-enter your password"
+          required
+        />
+        <span class="error" id="confirmPasswordError"></span>
+
+        <label for="email">E-mail ID</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
+        <span class="error" id="emailError"></span>
+
+        <label for="phone">Phone Number</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          placeholder="Enter your phone number"
+          required
+        />
+        <span class="error" id="phoneError"></span>
+
+        <label>Sex</label>
+        <input type="radio" id="male" name="sex" value="Male" required />
+        <label for="male" style="display: inline; color: #fff">Male</label>
+        <input type="radio" id="female" name="sex" value="Female" required />
+        <label for="female" style="display: inline; color: #fff">Female</label>
+        <span class="error" id="sexError"></span>
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required />
+        <span class="error" id="dobError"></span>
+
+        <label>Languages Known</label>
+        <div style="color: #fff">
+          <input type="checkbox" name="languages[]" value="English" /> English
+          <input type="checkbox" name="languages[]" value="Malayalam" />
+          Malayalam
+          <input type="checkbox" name="languages[]" value="Hindi" /> Hindi
+          <input type="checkbox" name="languages[]" value="Tamil" /> Tamil
+        </div>
+        <span class="error" id="languagesError"></span>
+
+        <label for="address">Address</label>
+        <textarea
+          id="address"
+          name="address"
+          placeholder="Enter your address"
+          required
+        ></textarea>
+        <span class="error" id="addressError"></span>
+
+        <div class="button-group">
+          <button type="reset">Reset</button>
+          <button type="submit">Register</button>
+        </div>
+
+        <div class="login-link">
+          <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (e) {
+          let valid = true;
+
+          // Clear old errors
+          document
+            .querySelectorAll(".error")
+            .forEach((el) => (el.textContent = ""));
+
+          let name = document.getElementById("name").value.trim();
+          if (!/^[A-Za-z\s]+$/.test(name)) {
+            document.getElementById("nameError").textContent =
+              "Only letters and spaces allowed.";
+            valid = false;
+          }
+
+          let password = document.getElementById("password").value;
+          if (
+            password.length < 8 ||
+            !/[A-Z]/.test(password) ||
+            !/[0-9]/.test(password) ||
+            !/[!@#$%^&*]/.test(password)
+          ) {
+            document.getElementById("passwordError").textContent =
+              "Must be 8+ chars, include uppercase, number & special char.";
+            valid = false;
+          }
+
+          let confirmPassword =
+            document.getElementById("confirm_password").value;
+          if (password !== confirmPassword) {
+            document.getElementById("confirmPasswordError").textContent =
+              "Passwords do not match.";
+            valid = false;
+          }
+
+          let email = document.getElementById("email").value.trim();
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            document.getElementById("emailError").textContent =
+              "Invalid email format.";
+            valid = false;
+          }
+
+          let phone = document.getElementById("phone").value.trim();
+          if (!/^\d{10}$/.test(phone)) {
+            document.getElementById("phoneError").textContent =
+              "Must be exactly 10 digits.";
+            valid = false;
+          }
+
+          let sex = document.querySelector('input[name="sex"]:checked');
+          if (!sex) {
+            document.getElementById("sexError").textContent =
+              "Please select gender.";
+            valid = false;
+          }
+
+          let dob = document.getElementById("dob").value;
+          if (dob) {
+            let dobDate = new Date(dob);
+            let age = new Date().getFullYear() - dobDate.getFullYear();
+            let monthDiff = new Date().getMonth() - dobDate.getMonth();
+            if (
+              monthDiff < 0 ||
+              (monthDiff === 0 && new Date().getDate() < dobDate.getDate())
+            ) {
+              age--;
+            }
+            if (age < 18) {
+              document.getElementById("dobError").textContent =
+                "You must be at least 18 years old.";
+              valid = false;
+            }
+          }
+
+          let languages = document.querySelectorAll(
+            'input[name="languages[]"]:checked'
+          );
+          if (languages.length === 0) {
+            document.getElementById("languagesError").textContent =
+              "Select at least one language.";
+            valid = false;
+          }
+
+          let address = document.getElementById("address").value.trim();
+          if (address.length < 10) {
+            document.getElementById("addressError").textContent =
+              "Address must be at least 10 characters.";
+            valid = false;
+          }
+
+          if (!valid) e.preventDefault();
+        });
+    </script>
+  </body>
 </html>
