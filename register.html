@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Registration | Online Book Store</title>
   <style>
-    /* Existing styles */
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,38 +17,37 @@
       padding: 20px;
     }
     .overlay {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.2);
       padding: 40px;
       border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
       width: 100%;
-      max-width: 450px;
-      color: #fff;
+      max-width: 480px;
+      color: #222;
     }
     h2 {
       text-align: center;
-      color: #ffffff;
+      color: #003366;
       margin-bottom: 25px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+      font-size: 28px;
     }
     label {
       font-weight: bold;
       display: block;
-      margin-bottom: 5px;
-      margin-top: 10px;
-      color: #ffeb99;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+      margin-bottom: 6px;
+      margin-top: 12px;
+      color: #003366;
     }
     input, select, textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 4px;
-      border: 1px solid #ccc;
+      padding: 12px;
+      margin-bottom: 6px;
+      border: 1px solid #888;
       border-radius: 8px;
-      background: rgba(255,255,255,0.95);
-      font-size: 14px;
+      background: #fff;
+      font-size: 15px;
       box-sizing: border-box;
       color: #000;
     }
@@ -62,21 +60,21 @@
       height: 60px;
     }
     .error {
-      color: #ff4d4d;
+      color: red;
       font-size: 13px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: block;
     }
     .button-group {
       display: flex;
       justify-content: space-between;
-      margin-top: 10px;
+      margin-top: 15px;
     }
     button {
       width: 48%;
-      background-color: #ffcc00;
-      color: #003366;
-      padding: 10px;
+      background-color: #003366;
+      color: #fff;
+      padding: 12px;
       border: none;
       border-radius: 8px;
       font-size: 16px;
@@ -85,20 +83,22 @@
       transition: all 0.3s ease;
     }
     button:hover {
-      background-color: #e6b800;
+      background-color: #0055aa;
       transform: scale(1.05);
     }
     .login-link {
       text-align: center;
       margin-top: 20px;
+      font-size: 15px;
     }
     .login-link a {
-      color: #ffcc00;
+      color: #003366;
       font-weight: bold;
       text-decoration: none;
     }
     .login-link a:hover {
       text-decoration: underline;
+      color: red;
     }
   </style>
 </head>
@@ -129,9 +129,9 @@
 
       <label>Sex</label>
       <input type="radio" id="male" name="sex" value="Male" required>
-      <label for="male" style="display:inline; color:#fff;">Male</label>
+      <label for="male" style="display:inline; color:#003366;">Male</label>
       <input type="radio" id="female" name="sex" value="Female" required>
-      <label for="female" style="display:inline; color:#fff;">Female</label>
+      <label for="female" style="display:inline; color:#003366;">Female</label>
       <span class="error" id="sexError"></span>
 
       <label for="dob">Date of Birth</label>
@@ -139,7 +139,7 @@
       <span class="error" id="dobError"></span>
 
       <label>Languages Known</label>
-      <div style="color:#fff;">
+      <div>
         <input type="checkbox" name="languages[]" value="English"> English
         <input type="checkbox" name="languages[]" value="Malayalam"> Malayalam
         <input type="checkbox" name="languages[]" value="Hindi"> Hindi
@@ -170,15 +170,14 @@
       document.querySelectorAll(".error").forEach(el => el.textContent = "");
 
       let name = document.getElementById("name").value.trim();
-      if (!/^[A-Za-z\s]+$/.test(name)) {
-        document.getElementById("nameError").textContent = "Only letters and spaces allowed.";
+      if (!/^[A-Za-z\s]+$/.test(name) || name.length < 6) {
+        document.getElementById("nameError").textContent = "Name must be at least 6 letters (alphabets only).";
         valid = false;
       }
 
       let password = document.getElementById("password").value;
-      if (password.length < 8 || !/[A-Z]/.test(password) || 
-          !/[0-9]/.test(password) || !/[!@#$%^&*]/.test(password)) {
-        document.getElementById("passwordError").textContent = "Must be 8+ chars, include uppercase, number & special char.";
+      if (password.length < 6) {
+        document.getElementById("passwordError").textContent = "Password must be at least 6 characters.";
         valid = false;
       }
 
@@ -196,7 +195,7 @@
 
       let phone = document.getElementById("phone").value.trim();
       if (!/^\d{10}$/.test(phone)) {
-        document.getElementById("phoneError").textContent = "Must be exactly 10 digits.";
+        document.getElementById("phoneError").textContent = "Phone must be exactly 10 digits.";
         valid = false;
       }
 
@@ -207,17 +206,9 @@
       }
 
       let dob = document.getElementById("dob").value;
-      if (dob) {
-        let dobDate = new Date(dob);
-        let age = new Date().getFullYear() - dobDate.getFullYear();
-        let monthDiff = new Date().getMonth() - dobDate.getMonth();
-        if (monthDiff < 0 || (monthDiff === 0 && new Date().getDate() < dobDate.getDate())) {
-          age--;
-        }
-        if (age < 18) {
-          document.getElementById("dobError").textContent = "You must be at least 18 years old.";
-          valid = false;
-        }
+      if (!dob) {
+        document.getElementById("dobError").textContent = "Please select date of birth.";
+        valid = false;
       }
 
       let languages = document.querySelectorAll('input[name="languages[]"]:checked');
